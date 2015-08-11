@@ -1,8 +1,8 @@
 ***************************
-*      FACET v1.1         *
+*      FACET v1.4         *
 *                         *
 *     release date        *
-*     3 March 2013        *
+*     8 August 2015       *
 ***************************
 
 For details on this algorithm see Kececioglu and DeBlasio 2013 (Journal of Computational Biology). And see http://facet.cs.arizona.edu for more examples and psipred conversion scripts.
@@ -62,3 +62,4 @@ MODIFICATION
 v1.0 :	Initial Release (March 2013)
 v1.1 :	Updated to make Facet work correctly when downloaded in alternate regions (January 2014)
 v1.3 :  Found a small error when calculating blockiness when ignoring gaps in block columns, previous version over counted aligned pairs.
+v1.4 :  Added ensemble alignment scripts with thier own README, added the ability to define coefficients from the command line when calling Java directly
