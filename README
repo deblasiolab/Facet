@@ -1,0 +1,64 @@
+***************************
+*      FACET v1.1         *
+*                         *
+*     release date        *
+*     3 March 2013        *
+***************************
+
+For details on this algorithm see Kececioglu and DeBlasio 2013 (Journal of Computational Biology). And see http://facet.cs.arizona.edu for more examples and psipred conversion scripts.
+
+FACET (Feature-based Accuracy Estimator) can be run simply using the following command:
+
+     ./runFACET.sh <seq> <struc> <prob>
+
+Where the variables are as follows:
+
+<seq> - the path to a sequence file in FASTA format of n sequcnes
+
+<struc> - is the unaligned sequence structure predictions from psipred32 (not included)
+	this file should be n lines long
+
+<prob> - the unaligned sequence structure class predictions from psipred32 (not included)
+	should contain 3*n lines
+	
+	
+MODIFICATION
+------------
+The Facet executable comes loaded with the coefficients from Kececioglu and DeBlasio 2013.  
+The polynomial function can be modified in Facet.java.  The package was built to be included 
+in other applications written in java.
+
+
+STRUCTURE
+---------
+
+sequence structure predictions should be made using psipred32, you can install psipred by 
+using these instructions:
+
+(1) Get psipred, e.g.
+$ mkdir psipred32
+$ cd psipred32
+$ wget http://bioinfadmin.cs.ucl.ac.uk/downloads/psipred/psipred32.tar.gz
+$ tar -xzf psipred32.tar.gz
+$ cd src
+$ make
+
+(2) Open the psipred script runpsipred (in the psipred installation
+directory), and modify all locations lines that need to be modified.
+
+(3) move into the psipred_scripts folder and update the pripred 
+location and temporary work space for the psipred output files.
+(on lines 5, update the values of $TEMP_FILE_LOCATION)
+
+(4) run ./psipred_wblast.pl on the input fasta file as follows:
+
+	./psipred_wblast.pl <seq> > <struc> 2> <prob>
+
+
+(note that you can use ./psipred.pl and runspipred_single, but the preiction results might be varried.)
+
+MODIFICATION
+------------
+v1.0 :	Initial Release (March 2013)
+v1.1 :	Updated to make Facet work correctly when downloaded in alternate regions (January 2014)
+v1.3 :  Found a small error when calculating blockiness when ignoring gaps in block columns, previous version over counted aligned pairs.

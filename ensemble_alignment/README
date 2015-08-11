@@ -1,0 +1,10 @@
+This folder contains the scripts to run general aligner advisisng up to cardinality 25, and default aligner advisisng up to cardinality 17.
+
+For both processes, the perl script should be run in the same folder as he convertClustalToFasta.pl and reorderFasta.pl files.
+
+To run advisisng use the following command convention:
+	perl <ensemble_script> <cardinality> <input_fasta> <input_structure> <input_structure_probability> > <output_fasta>
+
+The structure files should be in the same format for Facet (see main README).
+
+Each of the scripts must be modified to include the locations of the installed executables for the applications you wish to use for advisisng.  The locations in the files currently are those for use on the Arizona HPC and are not neccesarily trandferable. Along with the executables, some programs require certain files to be in specified locations, these are also in the first lines of the perl scripts.
