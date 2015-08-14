@@ -18,7 +18,8 @@ public class Configuration {
 	
 	public enum ReplacementMatrix{
 		BLOSUM62, BLOSUM45, BLOSUM80, 
-		VTML200, VTML20, VTML120, VTML40, VTML80
+		VTML200, VTML20, VTML120, VTML40, VTML80,
+		DNA, RNA
 	}
 	public enum Features{
 		PercentIdentity, StructeIdentity, AverageReplacementScore, Blockiness, Support
@@ -28,7 +29,7 @@ public class Configuration {
 	}
 	
 	public Features featureToRun;
-	private ReplacementMatrix matrix = ReplacementMatrix.BLOSUM62;
+	public ReplacementMatrix matrix = ReplacementMatrix.BLOSUM62;
 	
 	public Configuration(){
 		
@@ -59,6 +60,7 @@ public class Configuration {
 				phylogenyGradient = true;
 			}
 		}
+		sc.close();
 	}
 
 	public boolean hasStructureType(char a, char b){
@@ -212,9 +214,24 @@ public class Configuration {
 		case VTML80: return replacementValueVTML80(a,b);
 		case VTML120: return replacementValueVTML120(a,b);
 		case VTML200: return replacementValueVTML200(a,b);
+		case DNA: return replacementValueDNA(a,b);
+		case RNA: return replacementValueRNA(a,b);
 		}
 		throw  new IllegalArgumentException("The replacement matrix selection is invalid");
 	}
+	
+	private float replacementValueDNA(String a, String b){
+		if(a==b) return 0;
+		if(a.toUpperCase()=="A" && a.toUpperCase()=="G") return (float)25;
+		if(a.toUpperCase()=="C" && a.toUpperCase()=="T") return (float)25;
+		return 100;
+	}
+	
+	private float replacementValueRNA(String a, String b){
+		if(a==b) return 0;
+		return 100;
+	}
+	
 	private float replacementValueBLOSUM62(String a, String b){
 		int[][] tmp  = {
                 {46},

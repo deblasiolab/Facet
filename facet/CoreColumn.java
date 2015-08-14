@@ -1,9 +1,5 @@
 package facet;
 
-import java.io.*;
-import java.util.Scanner;
-import java.util.Locale;
-
 public class CoreColumn {
 	public static float[] getCoreColumns(FacetAlignment a, Configuration c){
 		float[] columns = new float[a.width];
@@ -31,7 +27,6 @@ public class CoreColumn {
 	public static double percentage(FacetAlignment a, Configuration c){
 		float core_columns[] = getCoreColumns(a,c);
 		int ct_core = 0;
-		int non_gap = 0;
 		for(int i=0;i<a.width;i++){
   			if(core_columns[i] == 1){ ct_core++; }
 		}

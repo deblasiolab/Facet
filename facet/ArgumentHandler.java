@@ -84,8 +84,7 @@ public class ArgumentHandler {
 		longopts[longopts_index++] = new LongOpt("structure_prob", LongOpt.REQUIRED_ARGUMENT, null, 'p');
 
 		Getopt g = new Getopt("facet", argv, "1:2:3:4:5:6:7:8:9:A:C:D:i:s:p:h", longopts);		
-		 
-		String optName;
+
 		int c;
 		while ((c = g.getopt()) != -1) {
 			String arg = g.getOptarg();

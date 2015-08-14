@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding=".DS_Store|.classpath|.project|FACET_v1.4.tgz|README|ensemble_alignment/|example/|psipred_scripts/|runFACET.sh|v1.1/|v1.3/|v1.4/" kind="src" path=""/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/deblasio/ParamAdvising/release/Facet"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

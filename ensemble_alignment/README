@@ -8,3 +8,13 @@ To run advisisng use the following command convention:
 The structure files should be in the same format for Facet (see main README).
 
 Each of the scripts must be modified to include the locations of the installed executables for the applications you wish to use for advisisng.  The locations in the files currently are those for use on the Arizona HPC and are not neccesarily trandferable. Along with the executables, some programs require certain files to be in specified locations, these are also in the first lines of the perl scripts.
+
+Alternately, if you want to use fold-wise sets provided on the Facet website, use "ensemble_alignment_from_set.pl" with the following command convention:
+	
+	perl ensemble_alignment_from_set.pl <input_fasta> <input_structure> <input_structure_probability> <ensemble_set_fname> > <output_fasta>
+	
+	or 
+	
+	head -n <k> <ensemble_set_fname> | perl ensemble_alignment_from_set.pl <input_fasta> <input_structure> <input_structure_probability> > <output_fasta>
+	
+The second version allows you to use sets smaller than the length of the file (assuming they are in greedy order).
