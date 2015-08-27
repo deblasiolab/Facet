@@ -4,7 +4,9 @@ public class Blockiness {
 	private static int min(int i, int j){
 		return (i>j)?j:i;
 	}
-	
+	public static String evaluate(Configuration c){
+		return "Blockiness";
+	}
 	public static float evaluate(FacetAlignment a, Configuration c){
 		int distance_matrix[][] = new int[a.width+1][a.width+1];
 		char type_matrix[][] = new char[a.width+1][a.width+1];

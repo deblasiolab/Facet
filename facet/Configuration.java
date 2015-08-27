@@ -29,7 +29,7 @@ public class Configuration {
 	}
 	
 	public Features featureToRun;
-	public ReplacementMatrix matrix = ReplacementMatrix.BLOSUM62;
+	public ReplacementMatrix matrix = ReplacementMatrix.VTML200;
 	
 	public Configuration(){
 		
@@ -198,10 +198,10 @@ public class Configuration {
 		throw new IllegalArgumentException("Unrecognized character "+ a + "\n");
 	}
 	
-	public float replacementValue(String a, String b){
+	public float replacementValue(char a, char b){
 		//System.err.println("Letters?" + a.toUpperCase() + " -- " + b.toUpperCase());
-		if(Letters.valueOf(a.toUpperCase()).ordinal()<Letters.valueOf(b.toUpperCase()).ordinal()){
-			String t = a;
+		if(Letters.valueOf(Character.toString(a).toUpperCase()).ordinal()<Letters.valueOf(Character.toString(b).toUpperCase()).ordinal()){
+			char t = a;
 			a = b;
 			b = t;
 		}
@@ -220,19 +220,19 @@ public class Configuration {
 		throw  new IllegalArgumentException("The replacement matrix selection is invalid");
 	}
 	
-	private float replacementValueDNA(String a, String b){
+	private float replacementValueDNA(char a, char b){
 		if(a==b) return 0;
-		if(a.toUpperCase()=="A" && a.toUpperCase()=="G") return (float)25;
-		if(a.toUpperCase()=="C" && a.toUpperCase()=="T") return (float)25;
+		if(Character.toUpperCase(a)=='A' && Character.toUpperCase(b)=='G') return (float)25;
+		if(Character.toUpperCase(a)=='C' && Character.toUpperCase(b)=='T') return (float)25;
 		return 100;
 	}
 	
-	private float replacementValueRNA(String a, String b){
+	private float replacementValueRNA(char a, char b){
 		if(a==b) return 0;
 		return 100;
 	}
 	
-	private float replacementValueBLOSUM62(String a, String b){
+	private float replacementValueBLOSUM62(char a, char b){
 		int[][] tmp  = {
                 {46},
                 {83,36},
@@ -258,9 +258,9 @@ public class Configuration {
                 {78,72,74,67,94,53,49,87,73,93,89,67,81,95,81,75,78,92,84,89,72,50},
                 {77,80,79,82,84,78,79,84,81,80,80,78,78,83,83,77,77,87,81,79,80,79,80}
         };
-		return (float) tmp[Letters.valueOf(a.toUpperCase()).ordinal() ][Letters.valueOf(b.toUpperCase()).ordinal()];
+		return (float) tmp[Letters.valueOf(Character.toString(a).toUpperCase()).ordinal() ][Letters.valueOf(Character.toString(b).toUpperCase()).ordinal()];
 	}
-	private float replacementValueBLOSUM80(String a, String b){
+	private float replacementValueBLOSUM80(char a, char b){
 		int[][] tmp  = {
 	            {41},
 	            {80,32},
@@ -286,9 +286,9 @@ public class Configuration {
 	            {75,68,71,65,95,48,44,84,69,90,87,64,77,92,78,71,75,91,83,85,69,45},
 	            {73,77,77,80,84,75,76,81,78,78,77,75,74,80,81,73,73,86,79,76,78,76,77}
 	    };
-		return (float) tmp[Letters.valueOf(a.toUpperCase()).ordinal() ][Letters.valueOf(b.toUpperCase()).ordinal()];
+		return (float) tmp[Letters.valueOf(Character.toString(a).toUpperCase()).ordinal() ][Letters.valueOf(Character.toString(b).toUpperCase()).ordinal()];
 	}
-	private float replacementValueBLOSUM45(String a, String b){
+	private float replacementValueBLOSUM45(char a, char b){
 		int[][] tmp  = {
 	            {51},
 	            {87,39},
@@ -314,9 +314,9 @@ public class Configuration {
 	            {83,75,79,69,93,58,54,90,78,93,90,71,85,95,82,81,83,86,87,92,77,55},
 	            {80,83,81,84,87,81,82,85,83,83,83,82,81,84,85,80,80,85,83,82,82,81,82}
 	    };
-		return (float) tmp[Letters.valueOf(a.toUpperCase()).ordinal() ][Letters.valueOf(b.toUpperCase()).ordinal()];
+		return (float) tmp[Letters.valueOf(Character.toString(a).toUpperCase()).ordinal() ][Letters.valueOf(Character.toString(b).toUpperCase()).ordinal()];
 	}
-	private float replacementValueVTML20(String a, String b){
+	private float replacementValueVTML20(char a, char b){
 		int[][] tmp  = {
 	            {19},
 	            {66,15},
@@ -343,9 +343,9 @@ public class Configuration {
 	            {60,64,61,69,69,61,65,68,60,66,65,62,63,67,66,59,60,72,65,63,65,63,64},
 	            {100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,40}
 	    };
-		return (float) tmp[Letters.valueOf(a.toUpperCase()).ordinal() ][Letters.valueOf(b.toUpperCase()).ordinal()];
+		return (float) tmp[Letters.valueOf(Character.toString(a).toUpperCase()).ordinal() ][Letters.valueOf(Character.toString(b).toUpperCase()).ordinal()];
 	}
-	private float replacementValueVTML40(String a, String b){
+	private float replacementValueVTML40(char a, char b){
 		int[][] tmp  = {
 	            {24},
 	            {68,18},
@@ -372,9 +372,9 @@ public class Configuration {
 	            {62,66,63,70,70,63,67,71,61,68,67,64,64,69,68,61,62,74,67,66,67,65,66},
 	            {100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,46}
 	    };
-		return (float) tmp[Letters.valueOf(a.toUpperCase()).ordinal() ][Letters.valueOf(b.toUpperCase()).ordinal()];
+		return (float) tmp[Letters.valueOf(Character.toString(a).toUpperCase()).ordinal() ][Letters.valueOf(Character.toString(b).toUpperCase()).ordinal()];
 	}
-	private float replacementValueVTML80(String a, String b){
+	private float replacementValueVTML80(char a, char b){
 		int[][] tmp  = {
 	            {31},
 	            {71,24},
@@ -401,9 +401,9 @@ public class Configuration {
 	            {65,69,66,72,72,66,70,74,64,71,70,67,67,72,72,64,66,77,69,69,69,68,69},
 	            {100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,54}
 	    };
-		return (float) tmp[Letters.valueOf(a.toUpperCase()).ordinal() ][Letters.valueOf(b.toUpperCase()).ordinal()];
+		return (float) tmp[Letters.valueOf(Character.toString(a).toUpperCase()).ordinal() ][Letters.valueOf(Character.toString(b).toUpperCase()).ordinal()];
 	}
-	private float replacementValueVTML120(String a, String b){
+	private float replacementValueVTML120(char a, char b){
 		int[][] tmp  = {
 	            {39},
 	            {74,29},
@@ -430,9 +430,9 @@ public class Configuration {
 	            {68,71,69,74,73,69,72,77,67,73,73,70,70,74,74,67,68,79,72,71,72,70,72},
 	            {100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,59}
 	    };
-		return (float) tmp[Letters.valueOf(a.toUpperCase()).ordinal() ][Letters.valueOf(b.toUpperCase()).ordinal()];
+		return (float) tmp[Letters.valueOf(Character.toString(a).toUpperCase()).ordinal() ][Letters.valueOf(Character.toString(b).toUpperCase()).ordinal()];
 	}
-	private float replacementValueVTML200(String a, String b){
+	private float replacementValueVTML200(char a, char b){
 		int[][] tmp  = {
 	            {52},
 	            {77,40},
@@ -459,7 +459,7 @@ public class Configuration {
 	            {73,75,74,77,76,73,76,80,72,77,76,74,75,77,77,73,73,81,75,76,76,75,75},
 	            {100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,66}
 	    };
-		return (float) tmp[Letters.valueOf(a.toUpperCase()).ordinal() ][Letters.valueOf(b.toUpperCase()).ordinal()];
+		return (float) tmp[Letters.valueOf(Character.toString(a).toUpperCase()).ordinal() ][Letters.valueOf(Character.toString(b).toUpperCase()).ordinal()];
 	}
 	
 }

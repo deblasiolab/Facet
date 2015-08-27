@@ -1,6 +1,20 @@
 package facet;
 
 public class PercentIdentity {
+	
+	public static String sequence(Configuration c){
+		return "Percent Identity" + ((c.equivelanceClassSize == 20)?"":(" E" + c.equivelanceClassSize));
+	}	
+	public static String structure(Configuration c){
+		return "Structure Percent Identity";
+	}	
+	public static String structure_prob(Configuration c){
+		return "Structure Percent Identity Prob";
+	}
+	public static String replacement_score(Configuration c){
+		return "Average Replacement Score" + ((c.normalizeBigN)?" N":"");
+	}
+	
 	public static float sequence(FacetAlignment a, Configuration c){
 		int pairs=0;
 		int pairsMatch=0;
@@ -33,6 +47,7 @@ public class PercentIdentity {
 				}
 			}
 		}
+		//System.err.println(pairsMatch+"/"+pairs);
 		return (float) pairsMatch/pairs;
 	}
 	
@@ -61,12 +76,13 @@ public class PercentIdentity {
 				for(int j=0;j<a.width;j++){
 					if(!(a.sequence[i1].charAt(j) == '-' || a.sequence[i2].charAt(j)=='-')){
 						pairs++;
-						pairsMatch += c.replacementValue(a.sequence[i1].substring(j, j+1), a.sequence[i2].substring(j, j+1));
+						pairsMatch += (100-c.replacementValue(a.sequence[i1].charAt(j), a.sequence[i2].charAt(j)));
 					}
 				}
 			}
 		}
 		if(c.normalizeBigN){
+			//System.err.println(pairsMatch + "/" + (a.bigN*100));
 			return (float) pairsMatch/(a.bigN*100);
 		}else{
 			return (float) pairsMatch/(pairs*100);

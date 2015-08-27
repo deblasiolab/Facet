@@ -1,10 +1,15 @@
 package facet;
 
 public class Support {
+	
+	public static String probability(Configuration c){
+		return "Supporting Probability";
+	}
+	
 	public static float probability(FacetAlignment a, Configuration c){
 		float rtn = 0;
 		int ct = 0;
-		for(int column=2;column<(a.width-2);column++){
+		for(int column=2;column<(a.width-3);column++){
 			for(int i=0;i<a.numberOfSequences;i++){
 				for(int j=i+1;j<a.numberOfSequences;j++){
 					for(int k=0;k<a.numberOfSequences;k++){
@@ -18,6 +23,7 @@ public class Support {
 				}
 			}
 		}
+		//System.err.println(rtn + "/" + ct);
 		return rtn/ct;
 	}
 	

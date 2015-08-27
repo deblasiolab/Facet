@@ -63,6 +63,71 @@ public class FacetAlignment {
 		}
 	}
 	
+	public FacetAlignment(char[][] al, float[][][] opal_sp){
+		if(opal_sp != null){
+			type = AlignmentType.Protein;
+		}
+        processAlArray(al);
+        processOpalSP(opal_sp);
+        setConsensus();
+	}
+	
+	private void processOpalSP(float[][][] opal_sp){
+	        structure_prob = new float[numberOfSequences][width][3];
+	        structure = new String[numberOfSequences];
+	        for(int i=0;i<numberOfSequences;i++){
+	                structure[i] = "";
+	                int k=0;
+	                for(int j=0;j<width;j++){
+	                        if(sequence[i].charAt(j) == '-'){
+	                                structure[i] += "-";
+	                                structure_prob[i][j][0]=-1;
+	                                structure_prob[i][j][1]=-1;
+	                                structure_prob[i][j][2]=-1;
+	                        }
+	                        else{
+	                                if(opal_sp[i][k][0]>=opal_sp[i][k][1] && opal_sp[i][k][0]>=opal_sp[i][k][2]) structure[i] += "C";
+	                                else if(opal_sp[i][k][1]>opal_sp[i][k][2]) structure[i] += "H";
+	                                else structure[i] += "E";
+	
+	                                structure_prob[i][j][0] = opal_sp[i][k][0];
+	                                structure_prob[i][j][1] = opal_sp[i][k][1];
+	                                structure_prob[i][j][2] = opal_sp[i][k][2];
+	                                k++;
+	                        }
+	                }
+	        }
+	}
+	private void processAlArray(char[][] al){
+	    numberOfSequences = al.length;
+	    sequence = new String[al.length];
+	    name = new String[al.length];
+	    int max1 = 0;
+	    int max2 = 0;
+	    for(int i=0;i<al.length;i++){
+	            sequence[i] = "";
+	            name[i] = "";
+	            int countNonGap = 0;
+	            for(int j=0;j<al[i].length;j++){
+	                    if(al[i][j]!='-'){
+	                            countNonGap++;
+	                            sequence[i] = sequence[i].concat(String.valueOf(al[i][j]));
+	                    }else{
+	                            sequence[i] = sequence[i].concat("-");
+	                    }
+	            }
+	            //System.err.println(sequence[i]);
+	            if(countNonGap>max1){
+	                    max2 = max1;
+	                    max1 = countNonGap;
+	            }else if(countNonGap>max2){
+	                    max2 = countNonGap;
+	            }
+	    }
+	    width = sequence[0].length();
+	    setBigN(max1, max2);
+	
+	}
 	public FacetAlignment(String[] se, String[] st, String[] na, String[][][] sp){
 		sequence = se.clone();
 		name = na.clone();
@@ -171,7 +236,7 @@ public class FacetAlignment {
 	}
 	
 	private void setBigN(int max1, int max2){
-		bigN = (float) ((((numberOfSequences+1.0)*((float)numberOfSequences))/2.0)*max1+max2);
+		bigN = (float) ((((numberOfSequences-1.0)*((float)numberOfSequences))/2.0)*(max1+max2));
 	}
 	
 	public void readSequencesFromFile(String filename) throws Exception{
@@ -251,5 +316,7 @@ public class FacetAlignment {
 			}
 		}
 		sc.close();
+		
+		
 	}
 }

@@ -1,6 +1,10 @@
 package facet;
 
 public class InformationContent{
+	
+	public static String evaluate(Configuration c){
+		return "Information Content";
+	}
 	public static double evaluate(FacetAlignment a, Configuration c){
 		double background_probability[] = new double[21];
 		double column_probability[][] = new double[a.width][21];
@@ -35,10 +39,11 @@ public class InformationContent{
 		double info_content = 0;
 		for(int i=0;i<a.width;i++){
 			for(int j=0;j<=20;j++){
+				//if(column_probability[i][j] != 0) System.err.println("(" + column_probability[i][j] +" *  Math.log(" + column_probability[i][j] +"/"+ background_probability[j]+"))");
 				if(column_probability[i][j] != 0) info_content += (column_probability[i][j] * Math.log(column_probability[i][j]/background_probability[j]));
 			}
 		}
-		
+		//System.err.println(info_content+"/"+a.width);
 		return info_content/a.width;
 	}
 }

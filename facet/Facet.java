@@ -63,13 +63,13 @@ public class Facet {
 			c20.matrix = Configuration.ReplacementMatrix.RNA;
 		}
 		
-		total += argHandler.average_replacement_score * 	PercentIdentity.replacement_score(a, c6);
+		total += argHandler.average_replacement_score * 	PercentIdentity.replacement_score(a, c20);
 		total += argHandler.gap_open_density * 				GapDensity.open(a, c6);
 		total += argHandler.gap_extension_density * 		GapDensity.extension(a, c6);
 		total += argHandler.gap_phylogeny_consensus * 		GapDensity.consensus(a, c6);
 		total += argHandler.percent_identity *				PercentIdentity.sequence(a, c10);
 		total += argHandler.core_column_coverage *			CoreColumn.percentage(a, c10);
-		total += argHandler.core_column_phylogeny_consensus *CoreColumn.consensus(a, c10);
+		total += argHandler.core_column_phylogeny_consensus *CoreColumn.consensus(a, c20);
 		total += argHandler.information_content *			InformationContent.evaluate(a, c20);
 		
 		if(a.type == FacetAlignment.AlignmentType.Protein){
