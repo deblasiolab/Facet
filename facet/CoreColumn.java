@@ -12,7 +12,11 @@ public class CoreColumn {
 				}else{
 					int same = 0;
 					for(int k=0;k<a.numberOfSequences;k++){
-						if(c.basesEquivelant(a.sequence[j].charAt(i), a.sequence[k].charAt(i))) same++;
+						try{
+							if(c.basesEquivelant(a.sequence[j].charAt(i), a.sequence[k].charAt(i))) same++;
+						}catch(IllegalArgumentException e){
+							
+						}
 					}
 					if(same > max_same) max_same = same;
 				}
@@ -69,11 +73,15 @@ public class CoreColumn {
 					int ec = 0;
 					int ee = 0;
 					for(int k=0;k<a.numberOfSequences;k++){
-						if(c.basesEquivelant(a.sequence[k].charAt(i), a.consensus[i]) &&
-								c.basesEquivelant(a.sequence[k].charAt(j), a.consensus[j])) cc++;
-						else if(c.basesEquivelant(a.sequence[k].charAt(i), a.consensus[i])) ce++;
-						else if(c.basesEquivelant(a.sequence[k].charAt(j), a.consensus[j])) ec++;
-						else ee++;
+						try{
+							if(c.basesEquivelant(a.sequence[k].charAt(i), a.consensus[i]) &&
+									c.basesEquivelant(a.sequence[k].charAt(j), a.consensus[j])) cc++;
+							else if(c.basesEquivelant(a.sequence[k].charAt(i), a.consensus[i])) ce++;
+							else if(c.basesEquivelant(a.sequence[k].charAt(j), a.consensus[j])) ec++;
+							else ee++;
+						}catch(IllegalArgumentException e){
+							
+						}
 					}
 					//System.err.println("(" + i + "," + j + ")\t(" + cc + "," + ce + "," + ec + "," + ee + ")");
 					count_total++;

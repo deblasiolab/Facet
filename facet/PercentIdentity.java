@@ -22,9 +22,13 @@ public class PercentIdentity {
 			for(int i2=i1+1;i2<a.numberOfSequences;i2++){
 				for(int j=0;j<a.width;j++){
 					if(!(a.sequence[i1].charAt(j) == '-' && a.sequence[i2].charAt(j)=='-')){
-						pairs++;
-						if(c.basesEquivelant(a.sequence[i1].charAt(j), a.sequence[i2].charAt(j))){
-							pairsMatch++;
+						try{	
+							if(c.basesEquivelant(a.sequence[i1].charAt(j), a.sequence[i2].charAt(j))){
+								pairsMatch++;
+							}
+							pairs++;
+						}catch(IllegalArgumentException e){
+							
 						}
 					}
 				}

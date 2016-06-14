@@ -23,7 +23,11 @@ public class Consistancy {
 			for(int j1=0;j1<a.numberOfSequences;j1++){
 				int ct = 0;
 				for(int j2=j1+1;j2<a.numberOfSequences;j2++){
-					ct += (c.basesEquivelant(a.sequence[j1].charAt(i),a.sequence[j1].charAt(i)))?1:0;
+					try{
+						ct += (c.basesEquivelant(a.sequence[j1].charAt(i),a.sequence[j1].charAt(i)))?1:0;
+					}catch(IllegalArgumentException e){
+						
+					}
 				}
 				if(ct>max){
 					max = ct;
@@ -31,7 +35,11 @@ public class Consistancy {
 				}
 			}
 			for(int j=0;j<a.numberOfSequences;j++){
-				is_consensus[i][j] = c.basesEquivelant(a.sequence[j].charAt(i),cons);
+				try{
+					is_consensus[i][j] = c.basesEquivelant(a.sequence[j].charAt(i),cons);
+				}catch(IllegalArgumentException e){
+					
+				}
 			}
 		}
 		

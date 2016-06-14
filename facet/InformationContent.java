@@ -21,10 +21,14 @@ public class InformationContent{
 			}
 			for(int j=0;j<a.numberOfSequences;j++){
 				if(a.sequence[j].charAt(i) != '-'){
-					column_count++;
-					total_count++;
-					background_probability[c.baseToInt(a.sequence[j].charAt(i))]++;
-					column_probability[i][c.baseToInt(a.sequence[j].charAt(i))]++;
+					try{
+						background_probability[c.baseToInt(a.sequence[j].charAt(i))]++;
+						column_probability[i][c.baseToInt(a.sequence[j].charAt(i))]++;
+						column_count++;
+						total_count++;
+					}catch(IllegalArgumentException e){
+						
+					}
 				}
 			}
 			for(int j=0;j<=20;j++){

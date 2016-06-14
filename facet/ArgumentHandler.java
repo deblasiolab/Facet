@@ -17,6 +17,8 @@ public class ArgumentHandler {
 	public double information_content = 0;
 	public double supporting_probability = 0.200589481;
 	public double blockiness = 0.174107269;
+	public double gap_consistancy = 0;
+	public double sequence_consistancy = 0;
 	
 	public double constant = 0.171730397;
 

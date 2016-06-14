@@ -1,6 +1,5 @@
 package facet;
 
-import java.io.FileNotFoundException;
 import java.util.*;
 
 
@@ -71,6 +70,8 @@ public class Facet {
 		total += argHandler.core_column_coverage *			CoreColumn.percentage(a, c10);
 		total += argHandler.core_column_phylogeny_consensus *CoreColumn.consensus(a, c20);
 		total += argHandler.information_content *			InformationContent.evaluate(a, c20);
+		total += argHandler.gap_consistancy * 				Consistancy.gap(a, c20);
+		total += argHandler.sequence_consistancy * 			Consistancy.sequence(a, c20);
 		
 		if(a.type == FacetAlignment.AlignmentType.Protein){
 			total += argHandler.structure_gap_coil_percentage * GapCoil.percentage(a, c6);
