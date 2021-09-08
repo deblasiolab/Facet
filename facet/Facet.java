@@ -40,8 +40,9 @@ public class Facet {
 		}
 	}
  
- 	public static float value(FacetAlignment a, ArgumentHandler argHandler){
+ 	public static String value(FacetAlignment a, ArgumentHandler argHandler){
 	    double total = 0;
+      String rtn = "";
 		Configuration c6 = new Configuration();
 		Configuration c10 = new Configuration();
 		Configuration c20 = new Configuration();
@@ -62,30 +63,68 @@ public class Facet {
 			c20.matrix = Configuration.ReplacementMatrix.RNA;
 		}
 		
-		total += argHandler.average_replacement_score * 	PercentIdentity.replacement_score(a, c20);
-		total += argHandler.gap_open_density * 				GapDensity.open(a, c6);
-		total += argHandler.gap_extension_density * 		GapDensity.extension(a, c6);
-		total += argHandler.gap_phylogeny_consensus * 		GapDensity.consensus(a, c6);
-		total += argHandler.percent_identity *				PercentIdentity.sequence(a, c10);
-		total += argHandler.core_column_coverage *			CoreColumn.percentage(a, c10);
-		total += argHandler.core_column_phylogeny_consensus *CoreColumn.consensus(a, c20);
-		total += argHandler.information_content *			InformationContent.evaluate(a, c20);
-		total += argHandler.gap_consistancy * 				Consistancy.gap(a, c20);
-		total += argHandler.sequence_consistancy * 			Consistancy.sequence(a, c20);
+    double RS = PercentIdentity.replacement_score(a, c20);
+    double GO = GapDensity.open(a, c6);
+    double GE = GapDensity.extension(a, c6);
+    double GDC = GapDensity.consensus(a, c6);
+    double PI = PercentIdentity.sequence(a, c10);
+    double CCP = CoreColumn.percentage(a, c10);
+    double CCC = CoreColumn.consensus(a, c20);
+    double IC = InformationContent.evaluate(a, c20);
+    double GC = Consistancy.gap(a, c20);
+    double SC = Consistancy.sequence(a, c20);
+
+
+		total += argHandler.average_replacement_score * 	RS;
+		total += argHandler.gap_open_density * 				    GO;
+		total += argHandler.gap_extension_density * 		  GE;
+		total += argHandler.gap_phylogeny_consensus * 		GDC;
+		total += argHandler.percent_identity *				    PI;
+		total += argHandler.core_column_coverage *			  CCP;
+		total += argHandler.core_column_phylogeny_consensus * CCC;
+		total += argHandler.information_content *			    IC;
+		total += argHandler.gap_consistancy * 				    GC;
+		total += argHandler.sequence_consistancy * 			  SC;
 		
-		if(a.type == FacetAlignment.AlignmentType.Protein){
-			total += argHandler.structure_gap_coil_percentage * GapCoil.percentage(a, c6);
-			total += argHandler.blockiness *					Blockiness.evaluate(a, c6);
-			total += argHandler.structure_percent_identity *	PercentIdentity.structure(a, c10);
-			total += argHandler.supporting_probability * 		Support.probability(a, c10);
-		}else if(argHandler.structure_gap_coil_percentage  != 0 || 
+    rtn += Double.toString(RS);
+    rtn += "," + Double.toString(GO);
+    rtn += "," + Double.toString(GE);
+    rtn += "," + Double.toString(GC);
+    rtn += "," + Double.toString(PI);
+    rtn += "," + Double.toString(CCP);
+    rtn += "," + Double.toString(CCC);
+    rtn += "," + Double.toString(IC);
+    rtn += "," + Double.toString(GC);
+    rtn += "," + Double.toString(SC);
+		
+    if(a.type == FacetAlignment.AlignmentType.Protein){
+      double SGCP = GapCoil.percentage(a, c6);
+      double BL = Blockiness.evaluate(a, c6);
+      double SPI = PercentIdentity.structure(a, c10); 
+      double SP = Support.probability(a, c10);
+
+			total += argHandler.structure_gap_coil_percentage * SGCP;
+			total += argHandler.blockiness *					          BL;
+			total += argHandler.structure_percent_identity *	  SPI;
+			total += argHandler.supporting_probability * 		    SP;
+    
+       rtn += "," + Double.toString(SGCP);
+       rtn += "," + Double.toString(BL);
+       rtn += "," + Double.toString(SPI);
+       rtn += "," + Double.toString(SP);
+
+    }else if(argHandler.structure_gap_coil_percentage  != 0 || 
 			argHandler.blockiness  != 0 || 
 			argHandler.structure_percent_identity  != 0 || 
 			argHandler.supporting_probability  != 0 ){
 			throw new IllegalArgumentException("If the alignemnt type is protein structure based features must have 0 value coefficients");
 		}
 
-		return (float) (total + argHandler.constant);
+    if(argHandler.verbose) rtn += "\t";
+    else rtn = "";
+    rtn += Double.toString(total + argHandler.constant);
+    //return (float) (total + argHandler.constant);
+    return rtn;
  	}
 
 	public static float defaultValue(FacetAlignment a){

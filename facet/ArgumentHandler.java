@@ -26,6 +26,8 @@ public class ArgumentHandler {
 	public String structure_seqs_fname = null;
 	public String structure_prob_fname = null;
 	
+  public boolean verbose = false;
+
 	private boolean still_default = true;
 	private void reset(){
 		still_default = false;
@@ -64,7 +66,7 @@ public class ArgumentHandler {
 	}
 	
 	public ArgumentHandler (String[] argv) {
-		LongOpt[] longopts = new LongOpt[16];
+		LongOpt[] longopts = new LongOpt[17];
 		int longopts_index=0;
 		longopts[longopts_index++] = new LongOpt("help", LongOpt.NO_ARGUMENT, null, 'h');
 		
@@ -80,12 +82,13 @@ public class ArgumentHandler {
 		longopts[longopts_index++] = new LongOpt("information_content", LongOpt.REQUIRED_ARGUMENT, null, 'A');
 		longopts[longopts_index++] = new LongOpt("supporting_probability", LongOpt.REQUIRED_ARGUMENT, null, 'C');
 		longopts[longopts_index++] = new LongOpt("blockiness", LongOpt.REQUIRED_ARGUMENT, null, 'D');
+		longopts[longopts_index++] = new LongOpt("verbose", LongOpt.NO_ARGUMENT, null, 'v');
 
 		longopts[longopts_index++] = new LongOpt("alignment", LongOpt.REQUIRED_ARGUMENT, null, 'i');
 		longopts[longopts_index++] = new LongOpt("structure_seqs", LongOpt.REQUIRED_ARGUMENT, null, 's');
 		longopts[longopts_index++] = new LongOpt("structure_prob", LongOpt.REQUIRED_ARGUMENT, null, 'p');
 
-		Getopt g = new Getopt("facet", argv, "1:2:3:4:5:6:7:8:9:A:C:D:i:s:p:h", longopts);		
+		Getopt g = new Getopt("facet", argv, "1:2:3:4:5:6:7:8:9:A:C:D:vi:s:p:h", longopts);		
 
 		int c;
 		while ((c = g.getopt()) != -1) {
@@ -140,7 +143,10 @@ public class ArgumentHandler {
 					if(still_default) reset();
 					blockiness = Double.parseDouble(arg);
 					break;
-				case 'i':
+        case 'v':
+          verbose = true;
+          break;
+        case 'i':
 					alignment_fname = arg;
 					break;
 				case 's':
